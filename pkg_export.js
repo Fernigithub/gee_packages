@@ -103,7 +103,7 @@ function clipImgCol(ImgCol, features, distance, reducer, file, options){
 // var options = {buffer:false, reducers:'first', list:true, save:true, 
 //      fileFormat:'geojson', folder:"", distance:0};
 // spClipImgCol(ImgCol, points, null, options)
-function spClipImgCol(ImgCol, points, file_prefix, options){
+function spClipImgCol(ImgCol, Feature, file_prefix, options){
     file_prefix = file_prefix || "";
     var reducers   = options.reducers;             // 1th: non-buffer; 2th: buffer
     var buffer     = options.buffer     || false;  // whether to use buffer
@@ -334,6 +334,7 @@ function export_shp (features, file, folder, fileFormat){
 exports = {
     mh_Buffer    : mh_Buffer,  // for img
     clipImgCol   : clipImgCol, // for ImgCol
+    spClipImgCol : spClipImgCol,  
     getDimensions: getDimensions,
     getProj      : getProj,
     ExportImg_deg: ExportImg_deg,
