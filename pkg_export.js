@@ -100,14 +100,15 @@ function clipImgCol(ImgCol, features, distance, reducer, file, options){
  */
 // 
 // Example:
-// var options = {buffer:false, reducers:'first', list:true, save:true, 
+// var options = {buffer:false, reducers:['first'], list:true, save:true, 
 //      fileFormat:'geojson', folder:"", distance:0};
 // spClipImgCol(ImgCol, points, null, options)
 function spClipImgCol(ImgCol, Features, file_prefix, options){
     file_prefix = file_prefix || "";
     var reducers   = options.reducers;             // 1th: non-buffer; 2th: buffer
     var buffer     = options.buffer     || false;  // whether to use buffer
-    
+    var list       = options.list       || false;
+
     var image  = ee.Image(ImgCol.first()), 
         prj    = image.projection();
     // scale is used to decide buffer `dist` and filename
