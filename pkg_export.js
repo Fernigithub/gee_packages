@@ -110,7 +110,7 @@ function spClipImgCol(ImgCol, Features, file_prefix, options){
     var list       = options.list       || false;
 
     var image  = ee.Image(ImgCol.first()), 
-        prj    = image.projection();
+        prj    = image.select(0).projection();
     // scale is used to decide buffer `dist` and filename
     var scale  = options.scale || prj.nominalScale().getInfo(); 
     
