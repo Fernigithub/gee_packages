@@ -103,7 +103,7 @@ function clipImgCol(ImgCol, features, distance, reducer, file, options){
 // var options = {buffer:false, reducers:'first', list:true, save:true, 
 //      fileFormat:'geojson', folder:"", distance:0};
 // spClipImgCol(ImgCol, points, null, options)
-function spClipImgCol(ImgCol, Feature, file_prefix, options){
+function spClipImgCol(ImgCol, Features, file_prefix, options){
     file_prefix = file_prefix || "";
     var reducers   = options.reducers;             // 1th: non-buffer; 2th: buffer
     var buffer     = options.buffer     || false;  // whether to use buffer
@@ -132,7 +132,7 @@ function spClipImgCol(ImgCol, Feature, file_prefix, options){
      
         file = file_prefix.concat('_').concat(Math.floor(dist)).concat('m_buffer');//fluxsites_
         // pkg_export.
-        clipImgCol(ImgCol, points, dist, reducer, file, options); //geojson
+        clipImgCol(ImgCol, Features, dist, reducer, file, options); //geojson
     }  
 }
 
