@@ -132,7 +132,7 @@ function spClipImgCol(ImgCol, Feature, file_prefix, options){
      
         file = file_prefix.concat('_').concat(Math.floor(dist)).concat('m_buffer');//fluxsites_
         // pkg_export.
-        pkg_export.clipImgCol(ImgCol, points, dist, reducer, file, options); //geojson
+        clipImgCol(ImgCol, points, dist, reducer, file, options); //geojson
     }  
 }
 
