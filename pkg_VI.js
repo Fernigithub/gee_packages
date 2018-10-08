@@ -9,16 +9,44 @@
 //         .rename(['red', 'nir', 'blue', 'swir']).multiply(0.0001);
 
 var pkg_VI  = {};
+
 pkg_VI.NDVI = function(img){
-    return img.expression("(b('nir')-b('red'))/(b('nir')+b('red'))").rename('NDVI');
+    return img.expression("(nir-red) / (nir+red)", 
+        {nir: img.select('nir'), red: img.select('red')}).rename('NDVI');
 }
 
 pkg_VI.EVI  = function(img){
-    return img.expression("2.5*(b('nir') - b('red')) / (b('nir') + 6*b('red') - 7.5*b('blue') + 1)").rename('EVI');
+    return img.expression("2.5*(nir - red) / (nir + 6*red - 7.5*blue + 1)", 
+        {nir: img.select('nir'), red: img.select('red'), blue: img.select('blue')}).rename('EVI');
+}
+
+pkg_VI.EVI2 = function(img){
+    // L is a canopy background adjustment factor.
+    return img.expression("2.5*(nir-red) / (nir+red*2.4+1)", 
+        {nir: img.select('nir'), red: img.select('red')}).rename('EVI2');
 }
 
 pkg_VI.LSWI = function(img){
-    return img.expression("(b('nir') - b('swir')) / (b('nir') + b('swir'))").rename('LSWI');
+    return img.expression("(nir - swir) / (nir + swir)", 
+        {nir: img.select('nir'), swir: img.select('swir')}).rename('LSWI');
 }
 
-exports = pkg_export;
+
+/**
+ * Soil-adjusted vegetation index
+ *
+ * @param {[type]} img [description]
+ * 
+ * @references
+ * 1. https://en.wikipedia.org/wiki/Soil-adjusted_vegetation_index
+ * 2. Huete, A.R., (1988) 'A soil-adjusted vegetation index (SAVI)' 
+ *     Remote Sensing of Environment, vol. 25, issue 3, pp. 259-309.
+ *     DOI: 10.1016/0034-4257(88)90106-X
+ */
+pkg_VI.SAVI = function(img){
+    // L is a canopy background adjustment factor.
+    return img.expression("(nir-red)*(1+L)/(nir+red+L)", 
+        {nir: img.select('nir'), red: img.select('red'), L:0.5}).rename('SAVI');
+}
+
+exports = pkg_VI;
